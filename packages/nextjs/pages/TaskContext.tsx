@@ -8,11 +8,11 @@ interface TaskProviderProps {
 
 // Interface for Task
 interface Task {
-  id: number;
+  id?: number;
   title: string;
   description?: string;
   speed: string;
-  amount: string;
+  amount?: string;
 }
 
 // Tasks array
