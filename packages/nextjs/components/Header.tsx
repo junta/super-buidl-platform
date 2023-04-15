@@ -2,6 +2,8 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import type { ISuccessResult } from "@worldcoin/idkit";
+import { IDKitWidget } from "@worldcoin/idkit";
 import { Bars3Icon, BugAntIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
@@ -28,6 +30,22 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
  */
 export const Header = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [hideWorldCoin, setHideWorldCoin] = useState(false);
+  const handleProof = useCallback((result: ISuccessResult) => {
+    return new Promise<void>(resolve => {
+      console.log("The result after verification is : ", result);
+      setTimeout(() => {
+        resolve();
+      }, 3000);
+      // NOTE: Example of how to decline the verification request and show an error message to the user
+    });
+  }, []);
+
+  const onSuccess = (result: ISuccessResult) => {
+    setHideWorldCoin(true);
+    console.log(result);
+  };
+
   const burgerMenuRef = useRef<HTMLDivElement>(null);
   useOutsideClick(
     burgerMenuRef,
@@ -95,7 +113,24 @@ export const Header = () => {
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
       </div>
-      <div className="navbar-end flex-grow mr-4">
+      <div className="navbar-end flex-grow mr-4 space-x-5">
+        {!hideWorldCoin && (
+          <div className="flex self-center">
+            <IDKitWidget
+              action="my_action"
+              signal="my_signal"
+              onSuccess={onSuccess}
+              handleVerify={handleProof}
+              app_id="app_staging_756f745d746fd2cdbfac178eaf4a5cac"
+            >
+              {({ open }) => (
+                <button className="btn btn-primary btn-sm" onClick={open}>
+                  Connect with world coin
+                </button>
+              )}
+            </IDKitWidget>
+          </div>
+        )}
         <RainbowKitCustomConnectButton />
         <FaucetButton />
       </div>

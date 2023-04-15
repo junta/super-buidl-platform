@@ -1,31 +1,14 @@
-import { useCallback, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { TaskContext } from "./TaskContext";
-import type { ISuccessResult } from "@worldcoin/idkit";
-import { IDKitWidget } from "@worldcoin/idkit";
 import { ethers } from "ethers";
 import type { NextPage } from "next";
 import { Status } from "~~/components/Status";
-import { useDeployedContractInfo, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import scaffoldConfig from "~~/scaffold.config";
 
 const Home: NextPage = () => {
-  const [hideWorldCoin, setHideWorldCoin] = useState(false);
-  const handleProof = useCallback((result: ISuccessResult) => {
-    return new Promise<void>(resolve => {
-      console.log("The result after verification is : ", result);
-      setTimeout(() => {
-        resolve();
-      }, 3000);
-      // NOTE: Example of how to decline the verification request and show an error message to the user
-    });
-  }, []);
-
-  const onSuccess = (result: ISuccessResult) => {
-    setHideWorldCoin(true);
-    console.log(result);
-  };
   const tasks = useContext(TaskContext);
   console.log(tasks);
 
@@ -118,23 +101,6 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div>
-          {!hideWorldCoin && (
-            <div className="flex self-center">
-              <IDKitWidget
-                action="my_action"
-                signal="my_signal"
-                onSuccess={onSuccess}
-                handleVerify={handleProof}
-                app_id="app_staging_756f745d746fd2cdbfac178eaf4a5cac"
-              >
-                {({ open }) => (
-                  <button className="btn btn-primary" onClick={open}>
-                    Connect with world coin
-                  </button>
-                )}
-              </IDKitWidget>
-            </div>
-          )}
         </div>
       ))}
     </>
