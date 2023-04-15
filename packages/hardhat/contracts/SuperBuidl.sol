@@ -123,7 +123,6 @@ contract SuperBuidl {
   /// @param token Token to stop streaming.
   /// @param receiver Receiver of stream.
   function deleteFlowFromContract(ISuperToken token, address receiver) external {
-    // if (!accountList[msg.sender] && msg.sender != owner) revert Unauthorized();
     if (!workerAttester.settleAndGetAssertionResult(receiver)) revert Unauthorized();
 
     token.deleteFlow(address(this), receiver);
