@@ -15,7 +15,7 @@ contract SuperBuidl {
   /// @notice Owner.
   address public owner;
 
-  WorkerAttesterInterface public immutable workerAttester;
+  WorkerAttesterInterface public workerAttester;
 
   /// @notice CFA Library.
   using SuperTokenV1Library for ISuperToken;
@@ -28,6 +28,12 @@ contract SuperBuidl {
       workerAttester = WorkerAttesterInterface(_workerAttester);
   }
 
+  function setAttester(address _workerAttester) external {
+    if (!accountList[msg.sender] && msg.sender != owner) revert Unauthorized();
+
+    workerAttester = WorkerAttesterInterface(_workerAttester);
+  }
+  
   /// @notice Add account to allow list.
   /// @param _account Account to allow.
   function allowAccount(address _account) external {
@@ -123,7 +129,6 @@ contract SuperBuidl {
   /// @param token Token to stop streaming.
   /// @param receiver Receiver of stream.
   function deleteFlowFromContract(ISuperToken token, address receiver) external {
-    // if (!accountList[msg.sender] && msg.sender != owner) revert Unauthorized();
     if (!workerAttester.settleAndGetAssertionResult(receiver)) revert Unauthorized();
 
     token.deleteFlow(address(this), receiver);

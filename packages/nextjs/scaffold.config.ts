@@ -10,11 +10,13 @@ export type ScaffoldConfig = {
   };
   walletAutoConnect: boolean;
   mumbaiDaixAddress: string;
+  goerliDaixAddress: string;
 };
 
 const scaffoldConfig = {
   // The network where your DApp lives in
-  targetNetwork: chains.polygonMumbai,
+  // targetNetwork: chains.hardhat,
+  targetNetwork: chains.goerli,
 
   // The interval at which your front-end polls the RPC servers for new data
   // it has no effect on the local network
@@ -34,6 +36,7 @@ const scaffoldConfig = {
     onlyLocal: true,
   },
   mumbaiDaixAddress: "0x5d8b4c2554aeb7e86f387b4d6c00ac33499ed01f",
+  goerliDaixAddress: "0xF2d68898557cCb2Cf4C10c3Ef2B034b2a69DAD00",
 
   /**
    * Auto connect:

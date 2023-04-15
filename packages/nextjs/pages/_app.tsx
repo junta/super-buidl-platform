@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
+import { TaskProvider } from "./TaskContext";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
@@ -17,7 +18,8 @@ import { appChains } from "~~/services/web3/wagmiConnectors";
 import "~~/styles/globals.css";
 
 const client = new ApolloClient({
-  uri: "https://api.thegraph.com/subgraphs/name/superfluid-finance/protocol-v1-mumbai",
+  // uri: "https://api.thegraph.com/subgraphs/name/superfluid-finance/protocol-v1-mumbai",
+  uri: "https://api.thegraph.com/subgraphs/name/superfluid-finance/protocol-v1-goerli", // goerli
   cache: new InMemoryCache(),
   // credentials: "true",
 });
@@ -48,13 +50,15 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
           avatar={BlockieAvatar}
           theme={isDarkTheme ? darkTheme() : lightTheme()}
         >
-          <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="relative flex flex-col flex-1">
-              <Component {...pageProps} />
-            </main>
-            <Footer />
-          </div>
+          <TaskProvider>
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="relative flex flex-col flex-1">
+                <Component {...pageProps} />
+              </main>
+              <Footer />
+            </div>
+          </TaskProvider>
           <Toaster />
         </RainbowKitProvider>
       </ApolloProvider>

@@ -35,7 +35,7 @@ const SuperFluid: NextPage = () => {
   const { data: signer } = useSigner();
   const { data: deployedContract } = useDeployedContractInfo("SuperBuidl");
   const [approvalLoading, setApprovalLoading] = useState(false);
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState("0xD8fEBA98bc4418290568a9111821dE2dc84E9F3E");
   const [deleteAddress, setDeleteAddress] = useState("");
   const [flowRatePerMonth, setFlowRatePerMonth] = useState("");
   const [flowRatePerSec, setFlowRatePerSec] = useState(0);
@@ -50,7 +50,8 @@ const SuperFluid: NextPage = () => {
     contractName: "SuperBuidl",
     functionName: "sendLumpSumToContract",
     args: [
-      scaffoldConfig.mumbaiDaixAddress,
+      // scaffoldConfig.mumbaiDaixAddress,
+      scaffoldConfig.goerliDaixAddress,
       NUMBER_REGEX.test(tokenValue) ? ethers.utils.parseEther(tokenValue) : undefined,
     ],
   });
@@ -61,23 +62,30 @@ const SuperFluid: NextPage = () => {
     contractName: "SuperBuidl",
     functionName: "createFlowFromContract",
     // @ts-expect-error its string so parsed correctly 🤞
-    args: [scaffoldConfig.mumbaiDaixAddress, address, flowRatePerSec.toString()],
+    // args: [scaffoldConfig.mumbaiDaixAddress, address, flowRatePerSec.toString()],
+    args: [scaffoldConfig.goerliDaixAddress, address, flowRatePerSec.toString()],
   });
 
   // delete flow
   const { writeAsync: deleteFlowFromContract, isLoading: isDeleteFlowLoading } = useScaffoldContractWrite({
     contractName: "SuperBuidl",
     functionName: "deleteFlowFromContract",
-    args: [scaffoldConfig.mumbaiDaixAddress, deleteAddress],
+    // args: [scaffoldConfig.mumbaiDaixAddress, deleteAddress],
+    args: [scaffoldConfig.goerliDaixAddress, deleteAddress],
   });
 
   const approve = async () => {
     setApprovalLoading(true);
     if (signer) {
       const provider = signer.provider;
+      // const provider = new ethers.providers.JsonRpcProvider(
+      //   "https://goerli.infura.io/v3/ce7426bf07f24fd59a2f7bbb6df217b4",
+      // );
+
       if (provider) {
         const sf = await Framework.create({
           chainId: targetNetwork.id,
+          // chainId: 31337,
           provider,
         });
         const daix = await sf.loadSuperToken("fDAIx");
@@ -136,7 +144,7 @@ const SuperFluid: NextPage = () => {
               <AddressInput value={address} onChange={e => setAddress(e)} />
             </div>
             <div className="flex flex-col space-y-1 w-full my-1">
-              <p className="font-semibold text-xl ml-1 my-0 break-words">Flow Rate</p>
+              <p className="font-semibold text-xl ml-1 my-0 break-words">Weekly wage(USD)</p>
               <div className="flex w-full items-center border-2 border-primary rounded-lg">
                 <input
                   value={flowRatePerMonth}

@@ -40,25 +40,15 @@ export const Header = () => {
         <NavLink href="/">Home</NavLink>
       </li>
       <li>
+        <NavLink href="/create">
+          <SparklesIcon className="h-4 w-4" />
+          Create
+        </NavLink>
+      </li>
+      <li>
         <NavLink href="/superfluid">
           <SparklesIcon className="h-4 w-4" />
-          Super App
-        </NavLink>
-      </li>
-      <li>
-        <NavLink href="/uma">
-          <SparklesIcon className="h-4 w-4" />
-          UMA
-        </NavLink>
-        <NavLink href="/userpage">
-          <SparklesIcon className="h-4 w-4" />
-          Userpage
-        </NavLink>
-      </li>
-      <li>
-        <NavLink href="/challengepage">
-          <SparklesIcon className="h-4 w-4" />
-          Challengepage
+          Admin
         </NavLink>
       </li>
       <li>
