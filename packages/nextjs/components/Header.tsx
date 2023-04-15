@@ -46,6 +46,24 @@ export const Header = () => {
         </NavLink>
       </li>
       <li>
+        <NavLink href="/taskpage">
+          <BugAntIcon className="h-4 w-4" />
+          Taskpage
+        </NavLink>
+      </li>
+      <li>
+        <NavLink href="/userpage">
+          <BugAntIcon className="h-4 w-4" />
+          Userpage
+        </NavLink>
+      </li>
+      <li>
+        <NavLink href="/challengepage">
+          <BugAntIcon className="h-4 w-4" />
+          Challengepage
+        </NavLink>
+      </li>
+      <li>
         <NavLink href="/superfluid">
           <SparklesIcon className="h-4 w-4" />
           Super App
