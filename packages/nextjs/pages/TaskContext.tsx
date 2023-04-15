@@ -21,7 +21,7 @@ const tasks: Task[] = [
   {
     id: 1,
     worker: "0xIbuki.eth",
-    title: "Complete TypeScript tutorial",
+    title: "Integrate Worldcoin SDK for user authentication",
     description: "implement contract hot reload function",
     speed: "20",
     amount: "5,612",
