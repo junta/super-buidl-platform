@@ -26,7 +26,7 @@ const Userpage: NextPage = () => {
               <p>description description description</p>
               <div className="card-actions justify-end">
                 <button className="btn btn-primary">
-                  <Link href="/userpage">Challenge</Link>
+                  <Link href="/challengepage">Challenge</Link>
                 </button>
               </div>
             </div>
