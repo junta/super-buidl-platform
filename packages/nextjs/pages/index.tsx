@@ -49,6 +49,7 @@ const Home: NextPage = () => {
       {tasks?.tasks?.map(task => (
         <div className="card w-120 bg-base-100 shadow-xl" key={task.id}>
           <div className="card-body">
+            <h2 className="card-title mb-0 mr-10">{task.worker}</h2>
             <div className="flex justify-between items-center">
               <h2 className="card-title mb-0 mr-10">{task.title}</h2>
               <Status speed={task.speed} amount={task.amount} />

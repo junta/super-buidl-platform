@@ -9,6 +9,7 @@ interface TaskProviderProps {
 // Interface for Task
 interface Task {
   id?: number;
+  worker: string;
   title: string;
   description?: string;
   speed: string;
@@ -19,22 +20,27 @@ interface Task {
 const tasks: Task[] = [
   {
     id: 1,
+    worker: "0xIbuki.eth",
     title: "Complete TypeScript tutorial",
-    description: "Learn how to use TypeScript with Node.js and React",
-    speed: "0.05",
-    amount: "1",
+    description: "implement contract hot reload function",
+    speed: "20",
+    amount: "5,612",
   },
   {
     id: 2,
-    title: "Finish reading 'The Alchemist'",
-    speed: "0.04",
-    amount: "2",
+    worker: "shivbhonde.eth",
+    title: "Add push protocol integration",
+    description: "detailed work description",
+    speed: "35",
+    amount: "22,623",
   },
   {
     id: 3,
-    title: "Clean the house",
-    speed: "0.03",
-    amount: "0.5",
+    worker: "0xJustin.eth",
+    title: "Migrate to latest version of Nest.js",
+    description: "detailed work description",
+    speed: "42",
+    amount: "17,543",
   },
 ];
 

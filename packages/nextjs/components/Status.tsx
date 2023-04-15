@@ -6,7 +6,7 @@ type StatusProps = {
 export const Status = ({ speed, amount = "" }: StatusProps) => {
   return (
     <div className="badge badge-outline">
-      current speed of payment: {speed} eth/min, amount of payment: {amount} eth
+      Payment(Wage): {speed} DAI/hour, Total Paid Amount: {amount} DAI
     </div>
   );
 };
