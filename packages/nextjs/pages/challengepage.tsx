@@ -5,7 +5,7 @@ import { Status } from "~~/components/Status";
 
 const Challengepage: NextPage = () => {
   const [approvalLoading, setApprovalLoading] = useState(false);
-
+  const [tokenValue, setTokenValue] = useState("");
   return (
     <>
       <Head>
@@ -28,11 +28,25 @@ const Challengepage: NextPage = () => {
             <p>description description description</p>
           </div>
         </div>
-        <div className="flex">
-          <button className={`btn btn-primary ${approvalLoading ? "loading" : ""}`} disabled={approvalLoading}>
-            Challenge
-          </button>
+
+        <div className="flex  items-center border-2 border-primary rounded-lg mb-5">
+          <input
+            value={tokenValue}
+            onChange={e => setTokenValue(e.target.value)}
+            type="text"
+            placeholder="0.00"
+            className="input input-ghost pl-1 focus:outline-none focus:bg-transparent focus:text-gray-400 h-[2.2rem] min-h-[2.2rem] border w-full font-medium placeholder:text-accent/50 text-gray-400 grow "
+          />
         </div>
+        <button
+          className={`btn btn-primary ${approvalLoading ? "loading" : ""}`}
+          disabled={approvalLoading}
+          onClick={async () => {
+            ("");
+          }}
+        >
+          Deposit tokens to chanllenge
+        </button>
       </div>
     </>
   );
