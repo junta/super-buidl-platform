@@ -70,22 +70,20 @@ const Home: NextPage = () => {
         <meta name="description" content="Created with 🏗 scaffold-eth" />
       </Head>
 
-      <div className="flex flex-col space-y-2 m-5">
-
-{tasks.map(task => (
-
-          <div className="card w-120 bg-base-100 shadow-xl" key={task.id}>
-            <div className="card-body">
-              <div className="flex justify-between items-center">
-                <h2 className="card-title mb-0 mr-10">{task.title}</h2>
-                <Status speed={task.speed} amount={task.amount} />
-              </div>
-              <p>{task.description}</p>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">
-                  <Link href="/submit">Submit Progress</Link>
-                </button>
-                {!doneClaim && (
+      <div className="flex flex-col space-y-2 m-5"></div>
+      {tasks.map(task => (
+        <div className="card w-120 bg-base-100 shadow-xl" key={task.id}>
+          <div className="card-body">
+            <div className="flex justify-between items-center">
+              <h2 className="card-title mb-0 mr-10">{task.title}</h2>
+              <Status speed={task.speed} amount={task.amount} />
+            </div>
+            <p>{task.description}</p>
+            <div className="card-actions justify-end">
+              <button className="btn btn-primary">
+                <Link href="/submit">Submit Progress</Link>
+              </button>
+              {!doneClaim && (
                 <label htmlFor="my-modal" className="btn">
                   Challenge
                 </label>
@@ -100,7 +98,7 @@ const Home: NextPage = () => {
                   Stop Payment
                 </label>
               )}
-               <input type="checkbox" id="my-modal" className="modal-toggle" />
+              <input type="checkbox" id="my-modal" className="modal-toggle" />
               <div className="modal">
                 <div className="modal-box">
                   <label htmlFor="my-modal" className="btn btn-sm btn-circle absolute right-2 top-2">
@@ -128,8 +126,8 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </>
   );
 };
