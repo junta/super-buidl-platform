@@ -114,7 +114,8 @@ const Home: NextPage = () => {
                           <div className="shadow-lg p-4 rounded-xl">
                             {Number(
                               ethers.utils.formatEther(ethers.BigNumber.from(stream.currentFlowRate).mul("86400")),
-                            ).toFixed(8)}
+                            ).toFixed(8)}{" "}
+                            DAI
                           </div>
                         </a>
                       </td>
