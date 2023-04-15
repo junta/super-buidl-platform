@@ -51,6 +51,12 @@ export const Header = () => {
           Super App
         </NavLink>
       </li>
+      <li>
+        <NavLink href="/uma">
+          <SparklesIcon className="h-4 w-4" />
+          UMA
+        </NavLink>
+      </li>
     </>
   );
 
