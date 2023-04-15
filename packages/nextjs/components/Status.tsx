@@ -5,7 +5,7 @@ type StatusProps = {
 
 export const Status = ({ speed, amount = "" }: StatusProps) => {
   return (
-    <div className="badge">
+    <div className="badge badge-outline">
       speed: {speed}, amount: {amount}
     </div>
   );

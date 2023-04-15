@@ -40,33 +40,27 @@ export const Header = () => {
         <NavLink href="/">Home</NavLink>
       </li>
       <li>
-        <NavLink href="/debug">
-          <BugAntIcon className="h-4 w-4" />
-          Debug Contracts
-        </NavLink>
-      </li>
-      <li>
-        <NavLink href="/taskpage">
-          <BugAntIcon className="h-4 w-4" />
-          Taskpage
+        <NavLink href="/superfluid">
+          <SparklesIcon className="h-4 w-4" />
+          Super App
         </NavLink>
       </li>
       <li>
         <NavLink href="/userpage">
-          <BugAntIcon className="h-4 w-4" />
+          <SparklesIcon className="h-4 w-4" />
           Userpage
         </NavLink>
       </li>
       <li>
         <NavLink href="/challengepage">
-          <BugAntIcon className="h-4 w-4" />
+          <SparklesIcon className="h-4 w-4" />
           Challengepage
         </NavLink>
       </li>
       <li>
-        <NavLink href="/superfluid">
-          <SparklesIcon className="h-4 w-4" />
-          Super App
+        <NavLink href="/debug">
+          <BugAntIcon className="h-4 w-4" />
+          Debug Contracts
         </NavLink>
       </li>
     </>

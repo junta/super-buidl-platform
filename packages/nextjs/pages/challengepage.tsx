@@ -1,8 +1,11 @@
+import { useState } from "react";
 import Head from "next/head";
 import type { NextPage } from "next";
 import { Status } from "~~/components/Status";
 
 const Challengepage: NextPage = () => {
+  const [approvalLoading, setApprovalLoading] = useState(false);
+
   return (
     <>
       <Head>
@@ -16,17 +19,19 @@ const Challengepage: NextPage = () => {
             <span className="block text-4xl font-bold">Challenge this task!</span>
           </h1>
         </div>
-        <div className="card w-120 bg-base-100 shadow-xl">
+        <div className="card w-120 bg-base-100 shadow-xl mb-10">
           <div className="card-body">
-            <div className="flex justify-between items-top">
-              <h2 className="card-title">Vitalik Buterin</h2>
+            <div className="flex justify-between items-center">
+              <h2 className="card-title mb-0 mr-10">Task1</h2>
               <Status speed="0.5eth/min" amount="1.5" />
             </div>
             <p>description description description</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Challenge</button>
-            </div>
           </div>
+        </div>
+        <div className="flex">
+          <button className={`btn btn-primary ${approvalLoading ? "loading" : ""}`} disabled={approvalLoading}>
+            Challenge
+          </button>
         </div>
       </div>
     </>
