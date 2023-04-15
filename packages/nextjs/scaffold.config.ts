@@ -9,11 +9,12 @@ export type ScaffoldConfig = {
     onlyLocal: boolean;
   };
   walletAutoConnect: boolean;
+  mumbaiDaixAddress: string;
 };
 
 const scaffoldConfig = {
   // The network where your DApp lives in
-  targetNetwork: chains.hardhat,
+  targetNetwork: chains.polygonMumbai,
 
   // The interval at which your front-end polls the RPC servers for new data
   // it has no effect on the local network
@@ -32,6 +33,7 @@ const scaffoldConfig = {
     // Only show the Burner Wallet when running on hardhat network
     onlyLocal: true,
   },
+  mumbaiDaixAddress: "0x5d8b4c2554aeb7e86f387b4d6c00ac33499ed01f",
 
   /**
    * Auto connect:

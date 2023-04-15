@@ -14,7 +14,7 @@ export const useScaffoldContract = <TContractName extends ContractName>({
   signerOrProvider,
 }: {
   contractName: TContractName;
-  signerOrProvider?: ethers.Signer | ethers.providers.Provider;
+  signerOrProvider?: ethers.Signer | ethers.providers.Provider | null;
 }) => {
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
   const provider = useProvider();
