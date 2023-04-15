@@ -30,9 +30,11 @@ const Create: NextPage = () => {
       title: name,
       description: description,
       speed: speed,
-    });
-    await tasks?.addTask(task as Task);
+    } as Task);
     setCreateLoading(false);
+    setName("");
+    setDescription("");
+    setSpeed("");
   };
   return (
     <>
@@ -62,6 +64,15 @@ const Create: NextPage = () => {
               onChange={e => setDescription(e.target.value)}
               type="text"
               placeholder="Description"
+              className="input input-ghost pl-1 focus:outline-none focus:bg-transparent focus:text-gray-400 h-[2.2rem] min-h-[2.2rem] border w-full font-medium placeholder:text-accent/50 text-gray-400 grow"
+            />
+          </div>
+          <div className="flex w-full items-center border-2 border-primary rounded-lg">
+            <input
+              value={speed}
+              onChange={e => setSpeed(e.target.value)}
+              type="text"
+              placeholder="Speed"
               className="input input-ghost pl-1 focus:outline-none focus:bg-transparent focus:text-gray-400 h-[2.2rem] min-h-[2.2rem] border w-full font-medium placeholder:text-accent/50 text-gray-400 grow"
             />
           </div>

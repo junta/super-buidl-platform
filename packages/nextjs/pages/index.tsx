@@ -11,6 +11,7 @@ import scaffoldConfig from "~~/scaffold.config";
 
 const Home: NextPage = () => {
   const tasks = useContext(TaskContext);
+  console.log(tasks);
 
   const [doneClaim, setDoneClaim] = useState(false);
 
