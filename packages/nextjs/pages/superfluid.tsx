@@ -1,15 +1,33 @@
 import { useState } from "react";
 import Head from "next/head";
+import { gql, useQuery } from "@apollo/client";
 import { Framework } from "@superfluid-finance/sdk-core";
 import { ethers } from "ethers";
 import type { NextPage } from "next";
 import { useSigner } from "wagmi";
-import { AddressInput } from "~~/components/scaffold-eth";
+import { Spinner } from "~~/components/Spinner";
+import { Address, AddressInput, Balance, BlockieAvatar } from "~~/components/scaffold-eth";
 import { useDeployedContractInfo, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import scaffoldConfig from "~~/scaffold.config";
 import { getTargetNetwork } from "~~/utils/scaffold-eth";
 
 export const NUMBER_REGEX = /^\.?\d+\.?\d*$/;
+export const GET_STREAMS = gql`
+  query MyQuery($currentFlowRate_gt: BigInt = "0") {
+    streams(where: { sender: "0xf5432f93822f049f600b0539714d2ed7baa32f56", currentFlowRate_gt: $currentFlowRate_gt }) {
+      currentFlowRate
+      token {
+        symbol
+      }
+      receiver {
+        id
+      }
+      sender {
+        id
+      }
+    }
+  }
+`;
 
 const SuperFluid: NextPage = () => {
   const [tokenValue, setTokenValue] = useState("");
@@ -21,6 +39,8 @@ const SuperFluid: NextPage = () => {
   const [deleteAddress, setDeleteAddress] = useState("");
   const [flowRatePerMonth, setFlowRatePerMonth] = useState("");
   const [flowRatePerSec, setFlowRatePerSec] = useState(0);
+  const { loading: loadingAllStreams, error: streamsError, data: allStreamsData } = useQuery(GET_STREAMS);
+  console.log("⚡️ ~ file: superfluid.tsx:42 ~ data:", allStreamsData);
   // const { data: superBuidl } = useScaffoldContract({
   //   contractName: "SuperBuidl",
   //   signerOrProvider: signer,
@@ -173,6 +193,41 @@ const SuperFluid: NextPage = () => {
                 Delete Flow
               </button>
             </div>
+          </div>
+          <div className="overflow-x-auto w-full">
+            {loadingAllStreams ? (
+              <div className="mx-auto">
+                <Spinner width="50" height="50" />
+              </div>
+            ) : allStreamsData?.streams?.length > 0 ? (
+              <table className="table w-full">
+                {/* head */}
+                <thead>
+                  <tr>
+                    <th>From Address</th>
+                    <th>To Address</th>
+                    <th>Current Stream / sec</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {allStreamsData.streams.map(stream => {
+                    return (
+                      <tr key={stream.receiver.id}>
+                        <td>
+                          <Address address={stream.sender.id} />
+                        </td>
+                        <td>
+                          <Address address={stream.receiver.id} />
+                        </td>
+                        <td>{ethers.utils.formatEther(stream.currentFlowRate)}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            ) : (
+              <div>No active stream found</div>
+            )}
           </div>
         </div>
       </div>
