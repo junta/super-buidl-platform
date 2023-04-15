@@ -17,7 +17,7 @@ const SuperFluid: NextPage = () => {
   const { data: signer } = useSigner();
   const { data: deployedContract } = useDeployedContractInfo("SuperBuidl");
   const [approvalLoading, setApprovalLoading] = useState(false);
-  const [address, setAddress] = useState("0xD8fEBA98bc4418290568a9111821dE2dc84E9F3E");
+  const [address, setAddress] = useState("0xF7A9C820e0dcE141AC2F56324697A9E8AA82F7Fa");
   const [deleteAddress, setDeleteAddress] = useState("");
   const [flowRatePerMonth, setFlowRatePerMonth] = useState("");
   const [flowRatePerSec, setFlowRatePerSec] = useState(0);

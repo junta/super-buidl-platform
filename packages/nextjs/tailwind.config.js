@@ -8,17 +8,17 @@ module.exports = {
     themes: [
       {
         scaffoldEth: {
-          primary: "#93BBFB",
+          primary: "#56B84A",
           "primary-content": "#212638",
-          secondary: "#DAE8FF",
+          secondary: "#7fe773",
           "secondary-content": "#212638",
-          accent: "#93BBFB",
+          accent: "#56B84A",
           "accent-content": "#212638",
           neutral: "#212638",
           "neutral-content": "#ffffff",
           "base-100": "#ffffff",
-          "base-200": "#F9FBFF",
-          "base-300": "#DAE8FF",
+          "base-200": "#ffffff",
+          "base-300": "#ffffff",
           "base-content": "#212638",
           info: "#93BBFB",
           success: "#34EEB6",
@@ -92,6 +92,7 @@ module.exports = {
     extend: {
       fontFamily: {
         "bai-jamjuree": ["Bai Jamjuree", "sans-serif"],
+        "nunito-sans": ["Nunito Sans", "sans-serif"],
       },
       keyframes: {
         grow: {
@@ -111,6 +112,7 @@ module.exports = {
         grow: "grow 5s linear infinite",
         "pulse-fast": "pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         zoom: "zoom 1s ease infinite",
+        "spin-slow": "spin 6.5s linear infinite",
       },
     },
   },
