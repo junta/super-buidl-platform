@@ -1,80 +1,42 @@
 import Head from "next/head";
-import Link from "next/link";
-import { gql, useQuery } from "@apollo/client";
-import { ethers } from "ethers";
 import type { NextPage } from "next";
-import { Spinner } from "~~/components/Spinner";
-import { Address } from "~~/components/scaffold-eth";
+import { useAccount } from "wagmi";
+import { WalletIcon } from "@heroicons/react/24/outline";
 
-export const GET_STREAMS = gql`
-  query MyQuery($currentFlowRate_gt: BigInt = "0") {
-    streams(where: { sender: "0x26439c143fff24b4c9114ef77f568b596613078f", currentFlowRate_gt: $currentFlowRate_gt }) {
-      currentFlowRate
-      token {
-        symbol
-      }
-      receiver {
-        id
-      }
-      sender {
-        id
-      }
-    }
-  }
-`;
-
-const Home: NextPage = () => {
-  const { loading: loadingAllStreams, data: allStreamsData } = useQuery(GET_STREAMS);
-  console.log("⚡️ ~ file: superfluid.tsx:42 ~ data:", allStreamsData);
-
+const Hero: NextPage = () => {
+  const { address } = useAccount();
+  console.log("⚡️ ~ file: Hero.tsx:8 ~ address:", address);
   return (
     <>
       <Head>
-        <title>Fluidpay App</title>
+        <title>SuperBuidl</title>
         <meta name="description" content="Created with 🏗 scaffold-eth" />
       </Head>
-      <div className="flex flex-col justify-center items-center spacey-y-6">
-        <h1 className="text-center text-3xl">Builders</h1>
-        <div className="overflow-x-auto w-[50%]">
-          {loadingAllStreams ? (
-            <div className="mx-auto">
-              <Spinner width="50" height="50" />
-            </div>
-          ) : allStreamsData?.streams?.length > 0 ? (
-            <table className="table w-full">
-              {/* head */}
-              <thead>
-                <tr>
-                  <th>From Address</th>
-                  <th>To Address</th>
-                  <th>Current Stream / sec</th>
-                </tr>
-              </thead>
-              <tbody>
-                {allStreamsData.streams.map(stream => {
-                  return (
-                    <tr key={stream.receiver.id}>
-                      <td>
-                        <Address address={stream.sender.id} />
-                      </td>
-                      <td>
-                        <Link href={`/builder/${stream.receiver.id}`}>
-                          <Address address={stream.receiver.id} />
-                        </Link>
-                      </td>
-                      <td>{ethers.utils.formatEther(stream.currentFlowRate)}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          ) : (
-            <div>No active stream found</div>
-          )}
+      <div className="flex items-center font-nunito-sans px-12 space-x-18">
+        <div className="flex flex-col w-[65%] self-start mt-32 text-black">
+          <h1 className="font-extrabold text-7xl w-[80%]">Build community and get funded!</h1>
+          <p className="text-lg font-medium text-gray-400 w-[90%]">
+            Join the movement towards a decentralized future and become a part of a thriving community that rewards
+            innovation, creativity, and collaboration.
+          </p>
+          <p className="text-lg font-medium text-gray-400 w-[90%]">
+            Ready to take the first step towards a brighter, more decentralized future?
+          </p>
+          <div className="flex space-x-4 mt-4">
+            {!address && (
+              <button className="btn btn-primary btn-md text-white">
+                <WalletIcon className="h-6 w-6 mr-3" /> Connect wallet
+              </button>
+            )}
+            <button className="btn btn-primary btn-outline text-white">Join the Community</button>
+          </div>
+        </div>
+        <div className="animate-spin-slow -mr-[200px] pt-24">
+          <img src="/assets/hero.svg" alt="hero" className="-mr-15" width={720} height={650} />
         </div>
       </div>
     </>
   );
 };
 
-export default Home;
+export default Hero;

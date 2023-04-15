@@ -51,7 +51,7 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
           theme={isDarkTheme ? darkTheme() : lightTheme()}
         >
           <TaskProvider>
-            <div className="flex flex-col min-h-screen">
+            <div className="flex flex-col min-h-screen font-nunito-sans font-semibold">
               <Header />
               <main className="relative flex flex-col flex-1">
                 <Component {...pageProps} />

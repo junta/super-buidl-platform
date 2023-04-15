@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import type { ISuccessResult } from "@worldcoin/idkit";
 import { IDKitWidget } from "@worldcoin/idkit";
-import { Bars3Icon, BugAntIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BugAntIcon, SparklesIcon, UserGroupIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
@@ -58,6 +58,12 @@ export const Header = () => {
         <NavLink href="/">Home</NavLink>
       </li>
       <li>
+        <NavLink href="/builders">
+          <UserGroupIcon className="h-4 w-4" />
+          Builders
+        </NavLink>
+      </li>
+      <li>
         <NavLink href="/create">
           <SparklesIcon className="h-4 w-4" />
           Create
@@ -79,7 +85,7 @@ export const Header = () => {
   );
 
   return (
-    <div className="sticky lg:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 justify-between z-20 shadow-md shadow-secondary">
+    <div className="sticky lg:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 justify-between z-20">
       <div className="navbar-start w-auto lg:w-1/2">
         <div className="lg:hidden dropdown" ref={burgerMenuRef}>
           <button
@@ -103,12 +109,8 @@ export const Header = () => {
           )}
         </div>
         <Link href="/" passHref className="hidden lg:flex items-center gap-2 ml-4 mr-6">
-          <div className="flex relative w-10 h-10">
+          <div className="flex relative w-40 h-12">
             <Image alt="SE2 logo" className="cursor-pointer" fill src="/logo.svg" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-bold leading-tight">Scaffold-eth</span>
-            <span className="text-xs">Ethereum dev stack</span>
           </div>
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
@@ -124,7 +126,7 @@ export const Header = () => {
               app_id="app_staging_756f745d746fd2cdbfac178eaf4a5cac"
             >
               {({ open }) => (
-                <button className="btn btn-primary btn-sm" onClick={open}>
+                <button className="btn btn-primary btn-sm text-white" onClick={open}>
                   Connect with world coin
                 </button>
               )}
