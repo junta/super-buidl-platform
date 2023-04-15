@@ -4,148 +4,19 @@ const contracts = {
       name: "goerli",
       chainId: "5",
       contracts: {
-        Buidlx: {
-          address: "0xe535CFb4B9f0eaEcF48A3Df684b566AA475434B0",
-          abi: [
-            {
-              inputs: [],
-              name: "Initialized",
-              type: "error",
-            },
-            {
-              inputs: [],
-              name: "ZeroAddress",
-              type: "error",
-            },
-            {
-              anonymous: false,
-              inputs: [
-                {
-                  indexed: true,
-                  internalType: "address",
-                  name: "previousOwner",
-                  type: "address",
-                },
-                {
-                  indexed: true,
-                  internalType: "address",
-                  name: "newOwner",
-                  type: "address",
-                },
-              ],
-              name: "OwnershipTransferred",
-              type: "event",
-            },
-            {
-              stateMutability: "payable",
-              type: "fallback",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "factory",
-                  type: "address",
-                },
-                {
-                  internalType: "string",
-                  name: "name",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "symbol",
-                  type: "string",
-                },
-              ],
-              name: "initialize",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "initialAddress",
-                  type: "address",
-                },
-              ],
-              name: "initializeProxy",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "receiver",
-                  type: "address",
-                },
-                {
-                  internalType: "uint256",
-                  name: "amount",
-                  type: "uint256",
-                },
-                {
-                  internalType: "bytes",
-                  name: "userData",
-                  type: "bytes",
-                },
-              ],
-              name: "mint",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "owner",
-              outputs: [
-                {
-                  internalType: "address",
-                  name: "",
-                  type: "address",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "renounceOwnership",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "newOwner",
-                  type: "address",
-                },
-              ],
-              name: "transferOwnership",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              stateMutability: "payable",
-              type: "receive",
-            },
-          ],
-        },
         SuperBuidl: {
-          address: "0x532fbC54271B05fd22A5eEeA1Ce9b5ef7ee3Eb13",
+          address: "0x26439c143fFF24B4C9114eF77f568B596613078F",
           abi: [
             {
               inputs: [
                 {
                   internalType: "address",
                   name: "_owner",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "_workerAttester",
                   type: "address",
                 },
               ],
@@ -268,6 +139,11 @@ const contracts = {
                   name: "token",
                   type: "address",
                 },
+                {
+                  internalType: "address",
+                  name: "worker",
+                  type: "address",
+                },
               ],
               name: "deleteFlowIntoContract",
               outputs: [],
@@ -314,6 +190,19 @@ const contracts = {
                 },
               ],
               name: "sendLumpSumToContract",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "_workerAttester",
+                  type: "address",
+                },
+              ],
+              name: "setAttester",
               outputs: [],
               stateMutability: "nonpayable",
               type: "function",
@@ -377,6 +266,341 @@ const contracts = {
               stateMutability: "nonpayable",
               type: "function",
             },
+            {
+              inputs: [],
+              name: "workerAttester",
+              outputs: [
+                {
+                  internalType: "contract WorkerAttesterInterface",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+          ],
+        },
+        WorkerAttester: {
+          address: "0xa3B4CF71A6A81cC7c61Ad072A30FFc767ADD5F04",
+          abi: [
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "_defaultCurrency",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "_optimisticOracleV3",
+                  type: "address",
+                },
+              ],
+              stateMutability: "nonpayable",
+              type: "constructor",
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: true,
+                  internalType: "bytes32",
+                  name: "dataId",
+                  type: "bytes32",
+                },
+                {
+                  indexed: false,
+                  internalType: "bytes32",
+                  name: "data",
+                  type: "bytes32",
+                },
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "asserter",
+                  type: "address",
+                },
+                {
+                  indexed: false,
+                  internalType: "bytes32",
+                  name: "assertionId",
+                  type: "bytes32",
+                },
+              ],
+              name: "DataAsserted",
+              type: "event",
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: true,
+                  internalType: "bytes32",
+                  name: "dataId",
+                  type: "bytes32",
+                },
+                {
+                  indexed: false,
+                  internalType: "bytes32",
+                  name: "data",
+                  type: "bytes32",
+                },
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "asserter",
+                  type: "address",
+                },
+                {
+                  indexed: false,
+                  internalType: "bytes32",
+                  name: "assertionId",
+                  type: "bytes32",
+                },
+              ],
+              name: "DataAssertionResolved",
+              type: "event",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "worker",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "dataId",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "data",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "address",
+                  name: "asserter",
+                  type: "address",
+                },
+              ],
+              name: "assertDataFor",
+              outputs: [
+                {
+                  internalType: "bytes32",
+                  name: "assertionId",
+                  type: "bytes32",
+                },
+              ],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "assertedId",
+              outputs: [
+                {
+                  internalType: "bytes32",
+                  name: "",
+                  type: "bytes32",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "bytes32",
+                  name: "assertionId",
+                  type: "bytes32",
+                },
+              ],
+              name: "assertionDisputedCallback",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "assertionLiveness",
+              outputs: [
+                {
+                  internalType: "uint64",
+                  name: "",
+                  type: "uint64",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "bytes32",
+                  name: "assertionId",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "bool",
+                  name: "assertedTruthfully",
+                  type: "bool",
+                },
+              ],
+              name: "assertionResolvedCallback",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              name: "assertionsData",
+              outputs: [
+                {
+                  internalType: "bytes32",
+                  name: "assertId",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "data",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "address",
+                  name: "asserter",
+                  type: "address",
+                },
+                {
+                  internalType: "bool",
+                  name: "resolved",
+                  type: "bool",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "defaultCurrency",
+              outputs: [
+                {
+                  internalType: "contract IERC20",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "defaultIdentifier",
+              outputs: [
+                {
+                  internalType: "bytes32",
+                  name: "",
+                  type: "bytes32",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "worker",
+                  type: "address",
+                },
+              ],
+              name: "getAssertionResult",
+              outputs: [
+                {
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "worker",
+                  type: "address",
+                },
+              ],
+              name: "getData",
+              outputs: [
+                {
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "",
+                  type: "bytes32",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "oo",
+              outputs: [
+                {
+                  internalType: "contract OptimisticOracleV3Interface",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "uint64",
+                  name: "_period",
+                  type: "uint64",
+                },
+              ],
+              name: "setPeriod",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "worker",
+                  type: "address",
+                },
+              ],
+              name: "settleAndGetAssertionResult",
+              outputs: [
+                {
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
+                },
+              ],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
           ],
         },
       },
@@ -388,7 +612,7 @@ const contracts = {
       chainId: "80001",
       contracts: {
         SuperBuidl: {
-          address: "0xF5432f93822F049F600B0539714d2Ed7BAA32f56",
+          address: "0x631898710733420cad7ee4d980DF388114Ef156d",
           abi: [
             {
               inputs: [
