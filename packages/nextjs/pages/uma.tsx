@@ -11,13 +11,16 @@ import { getTargetNetwork } from "~~/utils/scaffold-eth";
 export const NUMBER_REGEX = /^\.?\d+\.?\d*$/;
 
 const SuperFluid: NextPage = () => {
-  const [statement, setStatement] = useState("");
+  // const [statement, setStatement] = useState("");
   const { data: signer } = useSigner();
   const { data: deployedContract } = useDeployedContractInfo("SuperBuidl");
   const [approvalLoading, setApprovalLoading] = useState(false);
 
   // TODO: should be dynamic
-  const workerAddress = "0xD8fEBA98bc4418290568a9111821dE2dc84E9F3E";
+  const statement = "0xIBuki.eth has stopped sumibtting working progress from April 1st, 2023.";
+  const statementByte = ethers.utils.formatBytes32String("test");
+  // const workerAddress = "0xD8fEBA98bc4418290568a9111821dE2dc84E9F3E";
+  const workerAddress = "0x1e88f23864a8FE784eB152967AccDb394D3b88AD";
   const jobId = ethers.utils.formatBytes32String("15435");
   // console.log("dataID: ", dataId);
 
@@ -27,7 +30,7 @@ const SuperFluid: NextPage = () => {
   const { writeAsync: assertDataFor, isLoading: lumpSumpLoading } = useScaffoldContractWrite({
     contractName: "WorkerAttester",
     functionName: "assertDataFor",
-    args: [workerAddress, jobId, ethers.utils.formatBytes32String(statement), asserter],
+    args: [workerAddress, jobId, statementByte, asserter],
   });
   // ------------------
 
@@ -43,9 +46,8 @@ const SuperFluid: NextPage = () => {
           <p className="font-semibold text-xl ml-1 my-0 break-words">Address attest to: {workerAddress}</p>
           <div className="flex w-full items-center border-2 border-primary rounded-lg">
             <input
-              value={statement}
-              onChange={e => setStatement(e.target.value)}
               type="text"
+              value="0xIBuki.eth has stopped sumibtting working progress from April 1st, 2023."
               placeholder="0xIBuki.eth has stopped sumibtting working progress from April 1st, 2023."
               className="input input-ghost pl-1 focus:outline-none focus:bg-transparent focus:text-gray-400 h-[2.2rem] min-h-[2.2rem] border w-full font-medium placeholder:text-accent/50 text-gray-400 grow"
             />
