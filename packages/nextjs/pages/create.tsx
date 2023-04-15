@@ -1,20 +1,37 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Head from "next/head";
+import { TaskContext } from "./TaskContext";
 // import Link from "next/link";
 import type { NextPage } from "next";
 
 // import { useSigner } from "wagmi";
 // import { Status } from "~~/components/Status";
 
+interface Task {
+  id?: number;
+  title: string;
+  description?: string;
+  speed: string;
+  amount?: string;
+}
+
 const Create: NextPage = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [speed, setSpeed] = useState("");
+  const [task, setTask] = useState<Task>();
   const [createLoading, setCreateLoading] = useState(false);
   // const { data: signer } = useSigner();
+  const tasks = useContext(TaskContext);
 
-  const create = async () => {
+  const handleCreate = async () => {
     setCreateLoading(true);
-    //logic
+    setTask({
+      title: name,
+      description: description,
+      speed: speed,
+    });
+    await tasks?.addTask(task as Task);
     setCreateLoading(false);
   };
   return (
@@ -53,7 +70,7 @@ const Create: NextPage = () => {
             className={`btn btn-primary ${createLoading ? "loading" : ""}`}
             disabled={createLoading}
             onClick={async () => {
-              await create();
+              await handleCreate();
             }}
           >
             Create
