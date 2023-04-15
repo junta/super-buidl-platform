@@ -15,8 +15,10 @@ contract WorkerAttester {
     IERC20 public immutable defaultCurrency;
     OptimisticOracleV3Interface public immutable oo;
     // uint64 public constant assertionLiveness = 7200;
-    uint64 public constant assertionLiveness = 1;
+    uint64 public assertionLiveness = 10;
     bytes32 public immutable defaultIdentifier;
+
+    bytes32 public assertedId;
 
     struct DataAssertion {
         bytes32 assertId; // The dataId that was asserted.
@@ -25,9 +27,7 @@ contract WorkerAttester {
         bool resolved; // Whether the assertion has been resolved.
     }
 
-    mapping(bytes32 => DataAssertion) public assertionsData;
-
-    bytes32 public assertedId;
+    mapping(address => DataAssertion) public assertionsData;
 
     event DataAsserted(bytes32 indexed dataId, bytes32 data, address indexed asserter, bytes32 assertionId);
 
@@ -39,15 +39,14 @@ contract WorkerAttester {
         defaultIdentifier = oo.defaultIdentifier();
     }
 
-    // For a given assertionId, returns a boolean indicating whether the data is accessible and the data itself.
-    function getData(bytes32 assertionId) public view returns (bool, bytes32) {
-        if (!assertionsData[assertionId].resolved) return (false, 0);
-        return (true, assertionsData[assertionId].data);
+    function setPeriod(uint64 _period) public {
+        assertionLiveness = _period;
     }
 
-    function getAssertData() public view returns (bool, bytes32) {
-        if (!assertionsData[assertedId].resolved) return (false, 0);
-        return (true, assertionsData[assertedId].data);
+    // For a given assertionId, returns a boolean indicating whether the data is accessible and the data itself.
+    function getData(address worker) public view returns (bool, bytes32) {
+        if (!assertionsData[worker].resolved) return (false, 0);
+        return (true, assertionsData[worker].data);
     }
 
     // Asserts data for a specific dataId on behalf of an asserter address.
@@ -55,6 +54,7 @@ contract WorkerAttester {
     // because the block.timestamp is included in the claim. The consumer contract must store the returned assertionId
     // identifiers to able to get the information using getData.
     function assertDataFor(
+        address worker,
         bytes32 dataId,
         bytes32 data,
         address asserter
@@ -72,32 +72,8 @@ contract WorkerAttester {
         // to verify the information in publicly available sources.
         // See the UMIP corresponding to the defaultIdentifier used in the OptimisticOracleV3 "ASSERT_TRUTH" for more
         // information on how to construct the claim.
-        // assertionId = oo.assertTruth(
-        //     abi.encodePacked(
-        //         "Data asserted: 0x", // in the example data is type bytes32 so we add the hex prefix 0x.
-        //         ClaimData.toUtf8Bytes(data),
-        //         " for dataId: 0x",
-        //         ClaimData.toUtf8Bytes(dataId),
-        //         " and asserter: 0x",
-        //         ClaimData.toUtf8BytesAddress(asserter),
-        //         " at timestamp: ",
-        //         ClaimData.toUtf8BytesUint(block.timestamp),
-        //         " in the DataAsserter contract at 0x",
-        //         ClaimData.toUtf8BytesAddress(address(this)),
-        //         " is valid."
-        //     ),
-        //     asserter,
-        //     address(this),
-        //     address(0), // No sovereign security.
-        //     assertionLiveness,
-        //     defaultCurrency,
-        //     // bond,
-        //     0,
-        //     defaultIdentifier,
-        //     bytes32(0) // No domain.
-        // );
-                  
-        assertedId = oo.assertTruthWithDefaults(abi.encodePacked(
+        assertedId = oo.assertTruth(
+            abi.encodePacked(
                 "Data asserted: 0x", // in the example data is type bytes32 so we add the hex prefix 0x.
                 ClaimData.toUtf8Bytes(data),
                 " for dataId: 0x",
@@ -108,20 +84,43 @@ contract WorkerAttester {
                 ClaimData.toUtf8BytesUint(block.timestamp),
                 " in the DataAsserter contract at 0x",
                 ClaimData.toUtf8BytesAddress(address(this)),
-                " is valid."), address(this));
-        // assertionsData[assertedId] = DataAssertion(dataId, data, asserter, false);
+                " is valid."
+            ),
+            asserter,
+            address(this),
+            address(0), // No sovereign security.
+            assertionLiveness,
+            defaultCurrency,
+            // bond,
+            0,
+            defaultIdentifier,
+            bytes32(0) // No domain.
+        );
+                  
+        // assertedId = oo.assertTruthWithDefaults(abi.encodePacked(
+        //         "Data asserted: 0x", // in the example data is type bytes32 so we add the hex prefix 0x.
+        //         ClaimData.toUtf8Bytes(data),
+        //         " for dataId: 0x",
+        //         ClaimData.toUtf8Bytes(dataId),
+        //         " and asserter: 0x",
+        //         ClaimData.toUtf8BytesAddress(asserter),
+        //         " at timestamp: ",
+        //         ClaimData.toUtf8BytesUint(block.timestamp),
+        //         " in the DataAsserter contract at 0x",
+        //         ClaimData.toUtf8BytesAddress(address(this)),
+        //         " is valid."), address(this));
         
-        assertionsData[dataId] = DataAssertion(assertedId, data, asserter, false);
+        assertionsData[worker] = DataAssertion(assertedId, data, asserter, false);
 
         emit DataAsserted(dataId, data, asserter, assertedId);
     }
 
-    function settleAndGetAssertionResult(bytes32 dataId) public returns (bool) {
-        return oo.settleAndGetAssertionResult(assertionsData[dataId].assertId);
+    function settleAndGetAssertionResult(address worker) public returns (bool) {
+        return oo.settleAndGetAssertionResult(assertionsData[worker].assertId);
     }
 
-    function getAssertionResult(bytes32 dataId) public view returns (bool) {
-        return oo.getAssertionResult(assertionsData[dataId].assertId);
+    function getAssertionResult(address worker) public view returns (bool) {
+        return oo.getAssertionResult(assertionsData[worker].assertId);
     }
 
     // OptimisticOracleV3 resolve callback.
@@ -135,6 +134,9 @@ contract WorkerAttester {
     //         // Else delete the data assertion if it was false to save gas.
     //     } else delete assertionsData[assertionId];
     // }
+    function assertionResolvedCallback(bytes32 assertionId, bool assertedTruthfully) public {
+
+    }
 
     // If assertion is disputed, do nothing and wait for resolution.
     // This OptimisticOracleV3 callback function needs to be defined so the OOv3 doesn't revert when it tries to call it.
