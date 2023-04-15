@@ -48,7 +48,7 @@ export const Header = () => {
       <li>
         <NavLink href="/superfluid">
           <SparklesIcon className="h-4 w-4" />
-          Super App
+          Admin
         </NavLink>
       </li>
       <li>

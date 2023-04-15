@@ -20,7 +20,7 @@ const SuperFluid: NextPage = () => {
   const statement = "0xIBuki.eth has stopped sumibtting working progress from April 1st, 2023.";
   const statementByte = ethers.utils.formatBytes32String("test");
   // const workerAddress = "0xD8fEBA98bc4418290568a9111821dE2dc84E9F3E";
-  const workerAddress = "0x1e88f23864a8FE784eB152967AccDb394D3b88AD";
+  const workerAddress = "0xD8fEBA98bc4418290568a9111821dE2dc84E9F3E";
   const jobId = ethers.utils.formatBytes32String("15435");
   // console.log("dataID: ", dataId);
 
