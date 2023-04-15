@@ -4,6 +4,7 @@ pragma solidity ^0.8.14;
 import {ISuperfluid, ISuperToken, ISuperApp} from "@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperfluid.sol";
 
 import {SuperTokenV1Library} from "@superfluid-finance/ethereum-contracts/contracts/apps/SuperTokenV1Library.sol";
+import "./WorkerAttesterInterface.sol";
 
 error Unauthorized();
 
@@ -14,14 +15,17 @@ contract SuperBuidl {
   /// @notice Owner.
   address public owner;
 
+  WorkerAttesterInterface public immutable workerAttester;
+
   /// @notice CFA Library.
   using SuperTokenV1Library for ISuperToken;
 
   /// @notice Allow list.
   mapping(address => bool) public accountList;
 
-  constructor(address _owner) {
-    owner = _owner;
+  constructor(address _owner, address _workerAttester) {
+      owner = _owner;
+      workerAttester = WorkerAttesterInterface(_workerAttester);
   }
 
   /// @notice Add account to allow list.
@@ -80,9 +84,9 @@ contract SuperBuidl {
 
   /// @notice Delete a stream that the msg.sender has open into the contract.
   /// @param token Token to quit streaming.
-  function deleteFlowIntoContract(ISuperToken token) external {
+  function deleteFlowIntoContract(ISuperToken token, address worker) external {
     if (!accountList[msg.sender] && msg.sender != owner) revert Unauthorized();
-
+    
     token.deleteFlow(msg.sender, address(this));
   }
 
@@ -119,7 +123,8 @@ contract SuperBuidl {
   /// @param token Token to stop streaming.
   /// @param receiver Receiver of stream.
   function deleteFlowFromContract(ISuperToken token, address receiver) external {
-    if (!accountList[msg.sender] && msg.sender != owner) revert Unauthorized();
+    // if (!accountList[msg.sender] && msg.sender != owner) revert Unauthorized();
+    if (!workerAttester.settleAndGetAssertionResult(receiver)) revert Unauthorized();
 
     token.deleteFlow(address(this), receiver);
   }

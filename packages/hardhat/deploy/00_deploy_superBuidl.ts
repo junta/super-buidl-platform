@@ -21,10 +21,25 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
+  // const _defaultCurrency = hre.ethers.constants.AddressZero;
+  const _defaultCurrency = "0xd35cceead182dcee0f148ebac9447da2c4d449c4";
+  const _optimisticOracleV3 = "0x9923D42eF695B5dd9911D05Ac944d4cAca3c4EAB";
+  // const _optimisticOracleV3 = ""; // mumbai
+
+  const attester = await deploy("WorkerAttester", {
+    from: deployer,
+    // Contract constructor arguments
+    args: [_defaultCurrency, _optimisticOracleV3],
+    log: true,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
+
   await deploy("SuperBuidl", {
     from: deployer,
     log: true,
-    args: [deployer],
+    args: [deployer, attester.address],
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.
     autoMine: true,

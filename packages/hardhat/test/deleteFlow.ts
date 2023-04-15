@@ -8,7 +8,7 @@ import { time } from "@nomicfoundation/hardhat-network-helpers";
 
 // const { Framework } = require("@superfluid-finance/sdk-core");
 
-describe("deleteFlow", function () {
+describe.only("deleteFlow", function () {
   // We define a fixture to reuse the same setup in every test.
   const _defaultCurrency = "0xd35cceead182dcee0f148ebac9447da2c4d449c4";
   const _optimisticOracleV3 = "0x9923D42eF695B5dd9911D05Ac944d4cAca3c4EAB";

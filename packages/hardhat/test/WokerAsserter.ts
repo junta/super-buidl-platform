@@ -26,8 +26,9 @@ describe.only("WorkAttester", function () {
       const dataId = ethers.utils.formatBytes32String("15435");
       // console.log("dataID: ", dataId);
       const data = ethers.utils.formatBytes32String("workere A has stopped working");
+      const worker = "0x72Be8d8d7d1d10d0e7f12Df508bB29b33cFFA06B";
       const asserter = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
-      const tx = await WorkerAttester.assertDataFor(dataId, data, asserter);
+      const tx = await WorkerAttester.assertDataFor(worker, dataId, data, asserter);
       await tx.wait();
       // console.log(result.logs.at(0));
       // console.log(result.logs.at(1));
