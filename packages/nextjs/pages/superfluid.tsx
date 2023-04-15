@@ -14,7 +14,7 @@ import { getTargetNetwork } from "~~/utils/scaffold-eth";
 export const NUMBER_REGEX = /^\.?\d+\.?\d*$/;
 export const GET_STREAMS = gql`
   query MyQuery($currentFlowRate_gt: BigInt = "0") {
-    streams(where: { sender: "0xf5432f93822f049f600b0539714d2ed7baa32f56", currentFlowRate_gt: $currentFlowRate_gt }) {
+    streams(where: { sender: "0x26439c143fff24b4c9114ef77f568b596613078f", currentFlowRate_gt: $currentFlowRate_gt }) {
       currentFlowRate
       token {
         symbol
