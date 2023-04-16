@@ -19,7 +19,7 @@ const Builder: NextPage = () => {
 
   const statement = "0xIBuki.eth has stopped sumibtting working progress from April 1st, 2023.";
   const statementByte = ethers.utils.formatBytes32String("test");
-  const workerAddress = "0xD8fEBA98bc4418290568a9111821dE2dc84E9F3E";
+  const workerAddress = query.address as string;
   const jobId = ethers.utils.formatBytes32String("15435");
   // console.log("dataID: ", dataId);
 
@@ -128,11 +128,11 @@ const Builder: NextPage = () => {
                   <label htmlFor="my-modal" className="btn btn-sm btn-circle absolute right-2 top-2">
                     ✕
                   </label>
-                  <h3 className="font-bold text-lg">Claim to 0xIbuki.eth</h3>
-                  <p className="py-4">Please input reason why stop payment to 0xIbuki.eth clearly.</p>
+                  <h3 className="font-bold text-lg">Claim to shivbhonde.eth</h3>
+                  <p className="py-4">Please input reason why stop payment to shivbhonde.eth clearly.</p>
                   <textarea
-                    value="0xIBuki.eth has stopped sumibtting working progress from April 1st, 2023."
-                    placeholder="0xIBuki.eth has stopped sumibtting working progress from April 1st, 2023."
+                    value="shivbhonde.eth has stopped sumibtting working progress from April 1st, 2023."
+                    placeholder="shivbhonde.eth has stopped sumibtting working progress from April 1st, 2023."
                     className="input border w-full font-medium"
                   />
                   <div className="modal-action">

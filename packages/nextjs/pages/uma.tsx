@@ -17,7 +17,7 @@ const SuperFluid: NextPage = () => {
   const [approvalLoading, setApprovalLoading] = useState(false);
 
   // TODO: should be dynamic
-  const statement = "0xIBuki.eth has stopped sumibtting working progress from April 1st, 2023.";
+  const statement = "shivbhonde.eth has stopped sumibtting working progress from April 1st, 2023.";
   const statementByte = ethers.utils.formatBytes32String("test");
   // const workerAddress = "0xD8fEBA98bc4418290568a9111821dE2dc84E9F3E";
   const workerAddress = "0xD8fEBA98bc4418290568a9111821dE2dc84E9F3E";
@@ -47,8 +47,8 @@ const SuperFluid: NextPage = () => {
           <div className="flex w-full items-center border-2 border-primary rounded-lg">
             <input
               type="text"
-              value="0xIBuki.eth has stopped sumibtting working progress from April 1st, 2023."
-              placeholder="0xIBuki.eth has stopped sumibtting working progress from April 1st, 2023."
+              value="shivbhonde.eth has stopped sumibtting working progress from April 1st, 2023."
+              placeholder="shivbhonde.eth has stopped sumibtting working progress from April 1st, 2023."
               className="input input-ghost pl-1 focus:outline-none focus:bg-transparent focus:text-gray-400 h-[2.2rem] min-h-[2.2rem] border w-full font-medium placeholder:text-accent/50 text-gray-400 grow"
             />
           </div>

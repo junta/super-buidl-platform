@@ -17,7 +17,8 @@ const SuperFluid: NextPage = () => {
   const { data: signer } = useSigner();
   const { data: deployedContract } = useDeployedContractInfo("SuperBuidl");
   const [approvalLoading, setApprovalLoading] = useState(false);
-  const [address, setAddress] = useState("0xF7A9C820e0dcE141AC2F56324697A9E8AA82F7Fa");
+  // const [address, setAddress] = useState("0xF7A9C820e0dcE141AC2F56324697A9E8AA82F7Fa");
+  const [address, setAddress] = useState("");
   const [deleteAddress, setDeleteAddress] = useState("");
   const [flowRatePerMonth, setFlowRatePerMonth] = useState("");
   const [flowRatePerSec, setFlowRatePerSec] = useState(0);
@@ -125,7 +126,7 @@ const SuperFluid: NextPage = () => {
               <AddressInput value={address} onChange={e => setAddress(e)} />
             </div>
             <div className="flex flex-col space-y-1 w-full my-1">
-              <p className="font-semibold text-xl ml-1 my-0 break-words">Monthly stream</p>
+              <p className="font-semibold text-xl ml-1 my-0 break-words">Monthly stream(DAI)</p>
               <div className="flex w-full items-center border-2 border-primary rounded-lg">
                 <input
                   value={flowRatePerMonth}
