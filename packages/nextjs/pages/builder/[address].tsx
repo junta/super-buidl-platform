@@ -74,7 +74,7 @@ const Builder: NextPage = () => {
                   {/* row 1 */}
                   <tr>
                     <th>1</th>
-                    <td>23:45, April 23th 2023</td>
+                    <td>23:45, April 7th 2023</td>
                     <td>
                       1. Import multisigs to localstorage: https://github.com/austintgriffith/maas/pull/9 2. Reducing
                       renders of transaction list items to prevent re-rendering issues:
@@ -84,7 +84,7 @@ const Builder: NextPage = () => {
                   {/* row 2 */}
                   <tr>
                     <th>2</th>
-                    <td>22:12, April 22th 2023</td>
+                    <td>22:12, April 6th 2023</td>
                     <td>
                       1. Scaffold-ETH x Tailwind: https://github.com/stevenpslade/scaffold-eth-tailwind 2. Multisig.lol
                       improvements: https://github.com/austintgriffith/maas/pull/8 and
@@ -94,7 +94,7 @@ const Builder: NextPage = () => {
                   {/* row 3 */}
                   <tr>
                     <th>3</th>
-                    <td>21:02, April 21th 2023</td>
+                    <td>21:02, April 5th 2023</td>
                     <td>
                       1. EIP712 Version of Multisig.lol 2. Staking Contract with Permit2 3. Vesting Vault with a cliff
                       4. ERC20 with Tax on transfer 5. Some defi hack reproduction using foundry
@@ -131,8 +131,8 @@ const Builder: NextPage = () => {
                   <h3 className="font-bold text-lg">Claim to shivbhonde.eth</h3>
                   <p className="py-4">Please input reason why stop payment to shivbhonde.eth clearly.</p>
                   <textarea
-                    value="shivbhonde.eth has stopped sumibtting working progress from April 1st, 2023."
-                    placeholder="shivbhonde.eth has stopped sumibtting working progress from April 1st, 2023."
+                    value="shivbhonde.eth has stopped sumibtting working progress from April 7th, 2023."
+                    placeholder="shivbhonde.eth has stopped sumibtting working progress from April 7th, 2023."
                     className="input border w-full font-medium"
                   />
                   <div className="modal-action">

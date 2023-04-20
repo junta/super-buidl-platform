@@ -123,7 +123,7 @@ export const Header = () => {
               signal="my_signal"
               onSuccess={onSuccess}
               handleVerify={handleProof}
-              app_id="app_staging_44ecdb397e4fdd44516c69f6d485f967"
+              app_id="app_staging_037e4ab05939862897bb5e4590281a1c"
             >
               {({ open }) => (
                 <button className="btn btn-primary btn-sm text-white" onClick={open}>

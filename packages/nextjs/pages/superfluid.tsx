@@ -126,7 +126,7 @@ const SuperFluid: NextPage = () => {
               <AddressInput value={address} onChange={e => setAddress(e)} />
             </div>
             <div className="flex flex-col space-y-1 w-full my-1">
-              <p className="font-semibold text-xl ml-1 my-0 break-words">Monthly stream(DAI)</p>
+              <p className="font-semibold text-xl ml-1 my-0 break-words">Monthly payment stream(in DAI)</p>
               <div className="flex w-full items-center border-2 border-primary rounded-lg">
                 <input
                   value={flowRatePerMonth}
